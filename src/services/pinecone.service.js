@@ -14,8 +14,10 @@ function getIndex() {
 
   const index = pinecone.index(process.env.PINECONE_INDEX_NAME);
 
-  if (process.env.PINECONE_NAMESPACE) {
-    return index.namespace(process.env.PINECONE_NAMESPACE);
+  const namespace = process.env.PINECONE_NAMESPACE;
+
+  if (namespace && namespace !== "__default__" && namespace !== "default") {
+    return index.namespace(namespace);
   }
 
   return index;
