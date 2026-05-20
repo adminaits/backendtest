@@ -1,6 +1,8 @@
 import express from "express";
-import { createEmbedding, generateAnswer } from "../services/openai.service.js";
+import { generateAnswer } from "../services/openai.service.js";
+import { createEmbedding } from "../services/embedding.service.js";
 import { queryPinecone } from "../services/pinecone.service.js";
+
 
 const router = express.Router();
 
