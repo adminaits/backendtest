@@ -8,8 +8,11 @@ const router = express.Router();
 
 router.post("/", async (req, res, next) => {
   try {
-    const { query, topK = 10 } = req.body;
-
+const {
+  query,
+  topK = 10,
+  filters = {}
+} = req.body;
     if (!query || typeof query !== "string") {
       return res.status(400).json({
         error: "Query is required and must be a string."
