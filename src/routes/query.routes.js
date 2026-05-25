@@ -20,8 +20,11 @@ const {
     }
 
     const embedding = await createEmbedding(query);
-    const matches = await queryPinecone(embedding, Number(topK));
-    
+const matches = await queryPinecone(
+  embedding,
+  Number(topK),
+  filters
+);    
 
     console.log("Pinecone matches found:", matches.length);
     console.log("First match:", JSON.stringify(matches[0], null, 2));
