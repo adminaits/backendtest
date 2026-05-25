@@ -23,16 +23,20 @@ function getIndex() {
   return index;
 }
 
-export async function queryPinecone(vector, topK = 5) {
-  const index = getIndex();
+export async function queryPinecone(
+  vector,
+  topK = 5,
+  filters = {}
+) {
 
-  const result = await index.query({
+  const queryResponse = await index.query({
     vector,
     topK,
-    includeMetadata: true
+    includeMetadata: true,
+    filter: filters
   });
 
-  return result.matches || [];
+  return queryResponse.matches || [];
 }
 
 export async function upsertVectors(vectors) {
