@@ -29,12 +29,19 @@ export async function queryPinecone(
   filters = {}
 ) {
 
-  const queryResponse = await index.query({
-    vector,
-    topK,
-    includeMetadata: true,
-    filter: filters
-  });
+const queryResponse = await index.query({
+  vector: embedding,
+  topK,
+  includeMetadata: true,
+  filter: {
+    ...(filters.skill && {
+      skills: { $in: [filters.skill] }
+    }),
+    ...(filters.location && {
+      location: { $eq: filters.location }
+    })
+  }
+});
 
   return queryResponse.matches || [];
 }
